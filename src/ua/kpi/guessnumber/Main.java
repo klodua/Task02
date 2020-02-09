@@ -12,7 +12,7 @@ public class Main {
         Controller controller = new Controller(model,view);
 //        int asd = model.rollRandomNumber();
 //        System.out.println(asd);
-        controller.processUser();
+        controller.gameIsOn();
 
 
 
