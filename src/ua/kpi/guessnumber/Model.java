@@ -3,7 +3,6 @@ package ua.kpi.guessnumber;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.List;
-import java.util.Scanner;
 
 public class Model {
 
@@ -11,6 +10,10 @@ public class Model {
     private int limitTop;
     private int randomInteger;
     private final List<Integer> failedGuesses = new ArrayList<>();
+
+    public List<Integer> getFailedGuesses() {
+        return failedGuesses;
+    }
 
     public int getLimitBottom() {
         return limitBottom;
@@ -29,27 +32,34 @@ public class Model {
     }
 
     public void rollRandomNumber() {
-        randomInteger = new Random().nextInt(limitTop-limitBottom) + limitBottom;
+        randomInteger = new Random().nextInt(limitTop - limitBottom) + limitBottom;
     }
 
     public void setLimits(int limitBottom, int limitTop) {
         setLimitBottom(limitBottom);
         setLimitTop(limitTop);
     }
+
     public boolean isNumberGuessed() {
         return failedGuesses.contains(randomInteger);
     }
 
-//    public int guessNumber() {
-//        Scanner scanner = new Scanner(System.in);
-//        int answer = 0;
-//        do {
-////            answer = inputIntValue(scanner);
-////            tryToGuess(answer);
-//            inputIntValueWithScannerAndDiapason(scanner);
-//        } while (!isNumberGuessed());
-//        return answer;
-//    }
+    public void addAnswer(int answer) {
+        failedGuesses.add(answer);
+    }
 
+    public void attemptToGuess(int inputedInt) {
+        addAnswer(inputedInt);
+        if (inputedInt != randomInteger) {
+            updateLimits(inputedInt);
+        }
+    }
 
+    private void updateLimits(int inputedInt) {
+        if (inputedInt > randomInteger) {
+            setLimitTop(inputedInt);
+        } else {
+            setLimitBottom(inputedInt);
+        }
+    }
 }
