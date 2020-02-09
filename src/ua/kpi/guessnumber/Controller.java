@@ -2,11 +2,10 @@ package ua.kpi.guessnumber;
 
 import java.util.Scanner;
 
-public class Controller {
+import static ua.kpi.guessnumber.Constants.BOTTOM_LIMIT;
+import static ua.kpi.guessnumber.Constants.TOP_LIMIT;
 
-    public static final String HELLO = "Hello";
-    public static final String JAVA = "Java!";
-    public static final String BLANK_SPACE = " ";
+public class Controller {
 
     private Model model;
     private View view;
@@ -16,33 +15,58 @@ public class Controller {
         this.view  = view;
     }
 
-    public void processUser() {
-        Scanner scanner = new Scanner(System.in);
+    public void processUser(){
 
-        model.setInputedString(
-                inputString(scanner,
-                        View.INPUT_FIRST_WORD,
-                        HELLO,
-                        View.WRONG_FIRST_WORD));
-        model.addValue(BLANK_SPACE);
-        model.addValue(
-                inputString(scanner,
-                        View.INPUT_FINAL_STRING,
-                        JAVA,
-                        View.WRONG_FINAL_STRING));
+        view.printMessage(View.START_GAME_QUESTION);
+        model.setLimits(BOTTOM_LIMIT, TOP_LIMIT);
+        model.rollRandomNumber();
 
-        view.printFinalMessage(View.OUTPUT_MESSAGE, model.getInputedString());
+        int guessedNumber = guessNumber();
+        view.printGuessedNumber(guessedNumber);
+        view.printAllAnswers(model.getAnswers());
+//
+//        Scanner sc = new Scanner(System.in);
+//        int bott = 1;
+//        int top = 2;
+//        model.setInpunedInt(inputIntValueWithScannerAndDiapason(sc));
+//        System.out.println("bottom line: "+model.getLimitBottom());
+//        System.out.println("top line: "+ model.getLimitTop());
+////        model.addIntOurValue(FOUR);
+//
+//        view.printIntAndString(View.INPUTED_INT, 45);
     }
 
-    public String inputString(Scanner scanner, String printMessage,
-                              String stringForPass, String errorMessage) {
-        view.printMessage(printMessage);
-        String inputedString = scanner.next();
-
-        while (!inputedString.equals(stringForPass)) {
-            view.printMessage(errorMessage);
-            inputedString = scanner.next();
+    public int inputIntValueWithScanner(Scanner sc) {
+        view.printMessage(View.START_GAME_QUESTION);
+        while( ! sc.hasNextInt()) {
+            view.printMessage(View.WRONG_INPUT_INT + View.START_GAME_QUESTION);
+            sc.next();
         }
-        return inputedString;
+        return sc.nextInt();
+    }
+
+
+      public int inputIntValueWithScannerAndDiapason(Scanner sc) {
+        int res=0;
+        view.printMessage(view.INPUT_INT_DATA +
+                model.getLimitBottom() + model.getLimitTop());
+
+        while( true ) {
+            // check int - value
+            while (!sc.hasNextInt()) {
+                view.printMessage(view.WRONG_INPUT_INT
+                        + view.INPUT_INT_DATA);
+                sc.next();
+            }
+            // check value in diapason
+            if ((res = sc.nextInt()) <= model.getLimitBottom() ||
+                    res >= model.getLimitTop()) {
+                view.printMessage(view.WRONG_RANGE_DATA
+                        + View.INPUT_INT_DATA);
+                continue ;
+            }
+            break;
+        }
+        return res;
     }
 }

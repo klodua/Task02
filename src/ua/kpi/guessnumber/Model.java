@@ -1,17 +1,39 @@
 package ua.kpi.guessnumber;
 
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.List;
+
 public class Model {
-    private String inputedString;
 
-    public String addValue(String addedValue) {
-        return inputedString += addedValue;
+    private int limitBottom;
+    private int limitTop;
+    private int randomInteger;
+    private final List<Integer> failedGueses = new ArrayList<>();
+
+    public int getLimitBottom() {
+        return limitBottom;
     }
 
-    public String getInputedString() {
-        return inputedString;
+    public void setLimitBottom(int limitBottom) {
+        this.limitBottom = limitBottom;
     }
 
-    public void setInputedString(String inputedString) {
-        this.inputedString = inputedString;
+    public int getLimitTop() {
+        return limitTop;
     }
+
+    public void setLimitTop(int limitTop) {
+        this.limitTop = limitTop;
+    }
+
+    public void rollRandomNumber() {
+        randomInteger = new Random().nextInt(limitTop-limitBottom) + limitBottom;
+    }
+
+    public void setLimits(int limitBottom, int limitTop) {
+        setLimitBottom(limitBottom);
+        setLimitTop(limitTop);
+    }
+
 }
