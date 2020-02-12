@@ -32,7 +32,7 @@ public class Model {
     }
 
     public void rollRandomNumber() {
-        randomInteger = new Random().nextInt(limitTop - limitBottom) + limitBottom;
+        randomInteger = new Random().nextInt(limitTop - 1) + limitBottom+1;
     }
 
     public void setLimits(int limitBottom, int limitTop) {

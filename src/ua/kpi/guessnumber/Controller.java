@@ -21,7 +21,7 @@ public class Controller {
         model.setLimits(BOTTOM_LIMIT, TOP_LIMIT);
         model.rollRandomNumber();
         int guessedNumber = guessNumber();
-        view.printMessage(WINNER_TEXT,guessedNumber );
+        view.printMessage(WINNER_TEXT, guessedNumber);
         view.printAllAnswers(model.getFailedGuesses());
     }
 
@@ -37,7 +37,7 @@ public class Controller {
     public int inputWithCheckingValueAndDiapason(Scanner scanner) {
         view.printLimits(model.getLimitBottom(), model.getLimitTop());
         int result;
-        view.printMessage(INPUT_INT_DATA  );
+        view.printMessage(INPUT_INT_DATA);
 
         while (true) {
             // check int - value
