@@ -1,10 +1,9 @@
-package ua.kpi.guessnumber;
+package ua.klodco.guessnumber;
 
 import java.util.Scanner;
 
-import static ua.kpi.guessnumber.Constants.BOTTOM_LIMIT;
-import static ua.kpi.guessnumber.Constants.TOP_LIMIT;
-import static ua.kpi.guessnumber.View.*;
+import static ua.klodco.guessnumber.Constants.BOTTOM_LIMIT;
+import static ua.klodco.guessnumber.Constants.TOP_LIMIT;
 
 public class Controller {
 
@@ -21,7 +20,7 @@ public class Controller {
         model.setLimits(BOTTOM_LIMIT, TOP_LIMIT);
         model.rollRandomNumber();
         int guessedNumber = guessNumber();
-        view.printMessage(WINNER_TEXT, guessedNumber);
+        view.printMessage(View.WINNER_TEXT, guessedNumber);
         view.printAllAnswers(model.getFailedGuesses());
     }
 
@@ -37,20 +36,20 @@ public class Controller {
     public int inputWithCheckingValueAndDiapason(Scanner scanner) {
         view.printLimits(model.getLimitBottom(), model.getLimitTop());
         int result;
-        view.printMessage(INPUT_INT_DATA);
+        view.printMessage(View.INPUT_INT_DATA);
 
         while (true) {
             // check int - value
             while (!scanner.hasNextInt()) {
                 view.printLimits(model.getLimitBottom(), model.getLimitTop());
-                view.printMessage(WRONG_INPUT_INT, INPUT_INT_DATA);
+                view.printMessage(View.WRONG_INPUT_INT, View.INPUT_INT_DATA);
                 scanner.next();
             }
             // check value in diapason
             if ((result = scanner.nextInt()) <= model.getLimitBottom() ||
                     result >= model.getLimitTop()) {
                 view.printLimits(model.getLimitBottom(), model.getLimitTop());
-                view.printMessage(WRONG_RANGE_DATA, INPUT_INT_DATA);
+                view.printMessage(View.WRONG_RANGE_DATA, View.INPUT_INT_DATA);
                 continue;
             } else {
                 model.attemptToGuess(result);

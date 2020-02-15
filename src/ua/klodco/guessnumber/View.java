@@ -1,7 +1,6 @@
-package ua.kpi.guessnumber;
+package ua.klodco.guessnumber;
 
 import java.util.List;
-import java.util.StringJoiner;
 
 import static java.lang.System.out;
 

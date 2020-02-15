@@ -1,4 +1,4 @@
-package ua.kpi.guessnumber;
+package ua.klodco.guessnumber;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -32,7 +32,7 @@ public class Model {
     }
 
     public void rollRandomNumber() {
-        randomInteger = new Random().nextInt(limitTop - 1) + limitBottom+1;
+        randomInteger = new Random().nextInt(limitTop - 1) + limitBottom + 1;
     }
 
     public void setLimits(int limitBottom, int limitTop) {
